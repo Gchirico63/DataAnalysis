@@ -810,7 +810,7 @@ Lista_Instit_unique = Get_RealUniques(column_data_institution.unique())
 print('LOUT\n',Lista_Instit_unique)
 
 #strat_string  = column_data_institution.unique()[0]
-strat_string  = Lista_Instit_unique[3]
+strat_string  = Lista_Instit_unique[4]
 strat_string1 = "" 
 print ('stratifying to ',strat_string)
 print ('stratifying to ',strat_string1)
@@ -1012,8 +1012,8 @@ print (SuperMatrix_reordered.sum())
 print (SuperMatrix_reordered)
 conteggiTOT = SuperMatrix_reordered.sum()
 print ('conteggiTot:',conteggiTOT)
-sample_a = SuperMatrix_reordered[0:3,0:2].ravel()
-print (titolix[0:2],titoliy_reordered[0:3],sample_a.sum()/conteggiTOT,sample_a.std()/conteggiTOT)
+sample_a = SuperMatrix_reordered[4:6,7:9].ravel()
+print (titolix[7:9],titoliy_reordered[4:6],sample_a.sum()/conteggiTOT,sample_a.std()/conteggiTOT)
 
 print (sample_a)
 
@@ -1151,7 +1151,7 @@ print('NEW UNIQUE - Clustered ')
 Lista_Instit_unique = Get_RealUniques(column_data_institution.unique())
 print('LOUT\n',Lista_Instit_unique)
 #strat_string  = column_data_institution.unique()[4]
-strat_string  = Lista_Instit_unique[3]
+strat_string  = Lista_Instit_unique[4]
 
 
 print ('stratifying to ',strat_string)
@@ -1297,37 +1297,16 @@ plt.tight_layout()
 plt.show()
 figSMc_re.savefig(localpath+'Fig8_clustered_heatmap_ordered_strat_instit_Fig1.png')
 
-Amat = ClusterMatrix[3,:-1]+ClusterMatrix[4,:-1]
-print ('[3,:-1] + [4,:-1]: ', Amat.sum(),Amat.std())
-print ( np.concatenate( [ClusterMatrix[3,:-1],ClusterMatrix[4,:-1]]).ravel())
+print (ClusterMatrix_reordered.sum())
+print (ClusterMatrix_reordered)
+conteggiTOT = ClusterMatrix_reordered.sum()
+print ('conteggiTot:',conteggiTOT)
+sample_a = ClusterMatrix_reordered[4:6,2:5].ravel()
+print (titolix[3:5],titoliy_reordered[4:6],sample_a.sum()/conteggiTOT,sample_a.std()/conteggiTOT)
+sample_aC = ClusterMatrix_reordered[4:6,0].ravel()
+print (titolix[0],titoliy_reordered[4:6],sample_aC.sum()/conteggiTOT,sample_aC.std()/conteggiTOT)
 
-Bmat = ClusterMatrix[0:4,0]
-print ('[0:4,:] :',Bmat.sum(),Bmat.std())
-print ( ClusterMatrix[0:4,0].ravel())
+print (sample_a)
 
 
-# Example data: two independent samples
-total_a = 2728
-sample_a_3_5_4_5 = np.array([140,92,62,87,196,76,44,5])/ total_a
-sample_a_0_4_0_6 = np.array([79 , 93 , 91 ,140]) / total_a
-
-total_b = 61
-sample_b_3_5_4_5 = np.array([3, 1, 0, 3, 4, 2, 1, 1]) / total_b
-sample_b_0_4_0_6 = np.array([2, 1, 4, 2]) /total_b 
-
-#total_c = 243
-#sample_c_4_6_0_2 = np.array([3, 3, 4, 4]) / total_c
-#sample_c_0_2_0_2 = np.array([8, 9, 9, 8]) / total_c
-
-try:
-    # Independent two-sample t-test (equal variance assumed by default)
-    t_stat, p_value = stats.ttest_ind(sample_a_3_5_4_5, sample_b_3_5_4_5, equal_var=True)
-
-    print("Independent Two-Sample t-test:")
-    print(f"t-statistic = {t_stat:.4f}")
-    print(f"p-value     = {p_value:.6f}")
-    print ('meana:',sample_a_3_5_4_5.mean(),sample_a_3_5_4_5.std())
-    print ('meanb:',sample_b_3_5_4_5.mean(),sample_b_3_5_4_5.std())
-except Exception as e:
-    print(f"Error performing t-test: {e}")
 
