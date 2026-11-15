@@ -18,7 +18,12 @@ import re
 
 
 # Change the directory
-path = 'G:\\My Drive\\progetti\\CEE\\COST_IMPROVE\\2026\SurveyAnalysis\\'
+#path = 'G:\\My Drive\\progetti\\CEE\\COST_IMPROVE\\2026\SurveyAnalysis\\'
+path0 = '/Users/giberto/Library/CloudStorage/GoogleDrive-giuseppe.chirico@unimib.it/'
+path1= 'My Drive/progetti/CEE/COST_IMPROVE/2026/SurveyAnalysis/'
+path = path0+path1
+
+#'Content_Export_implementation-3R-landscape_surveyMay10_2026.xlsx'
 localpath = path
 #path = 'G:\\My Drive\\progetti\\CEE\\COST_IMPROVE\\2025\survey\\'
 os.chdir(path)
@@ -34,16 +39,16 @@ IF  = int(input('enter which file you want to analyze'))
 excel_file = fname[IF] # 'Content_Export_WG2_CA_IMPROVE_2024_resultsSruveyImprove_24Oct2024.xls'
 print ('analysing this file: ', excel_file)
 
-# Read the Excel file into a DataFrame
+######  Read the Excel file into a DataFrame
 df = pd.read_excel(excel_file,header = 3)
 numerodati  = int(input('HOW MANY ITEMNS YOU WANT TO ANALYSE????'))
 
 df = df.iloc[:numerodati].copy()
 
-
 columns = df.columns.tolist()
 
 print ('%%%%%%%%%%%%%%%%% size of the data set:',len(df))
+print ('%%%%%%%%%%%%%%%%% columns in Content file')
 # Print the column names
 for i in range(len(columns)): 
     print(i,columns[i])
@@ -160,7 +165,7 @@ print ('total number of countries represented:',len(sorted_countries))
 
 # Show the plot
 plt.show()
-
+#######  aTHIS IS THE END OF THE PLOT OF COUNTRIES
 #########  analysis of part2 Array-questionsl. 
 
 def GetSuperlist(col):
@@ -222,12 +227,11 @@ def plot_histogram_data(labels, values):
     plt.show()
     return titolix
 ###############################################################################
-
-local_path = "G:\\My Drive\\progetti\\CEE\\COST_IMPROVE\\2026\\SurveyAnalysis\\"
+#local_path = "G:\\My Drive\\progetti\\CEE\\COST_IMPROVE\\2026\\SurveyAnalysis\\"
 ###############################################################################
 
-superlist = GetSuperlist(column_data_Q3)
-print ('total number of answers in Q3:',len(superlist))
+superlist = GetSuperlist(column_data_Q3)  ### get all the entries separated by a ;
+print ('######  total number of answers in Q3:',len(superlist))
 
 counter = Counter(superlist)
 sorted_data = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
@@ -237,45 +241,52 @@ labels, values = zip(*sorted_data.items())
 ####   titolix = plot_histogram_data(labels, values)
 
 sorted_data_Q3 = sorted_data
-
+##### --------------------------------
 superlist = GetSuperlist(column_data_Q4)
 counter = Counter(superlist)
 sorted_data_Q4 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q4:',len(superlist))
 #print ('sorted Q4',sorted_data_Q4.items())
 
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q5)
 counter = Counter(superlist)
 sorted_data_Q5 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q5:',len(superlist))
 #print ('sorted Q5',sorted_data_Q5.items())
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q7)
 counter = Counter(superlist)
 sorted_data_Q7 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q7:',len(superlist))
 #print ('sorted Q7',sorted_data_Q7.items())
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q8)
 counter = Counter(superlist)
 sorted_data_Q8 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q8:',len(superlist))
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q9)
 counter = Counter(superlist)
 sorted_data_Q9 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q9:',len(superlist))
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q10)
 counter = Counter(superlist)
 sorted_data_Q10 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q10:',len(superlist))
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q10b)
 counter = Counter(superlist)
 sorted_data_Q10b = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q10b:',len(superlist))
+##### --------------------------------
 
 superlist = GetSuperlist(column_data_Q11)
 counter = Counter(superlist)
@@ -283,7 +294,7 @@ sorted_data_Q11 = dict(sorted(counter.items(), key=lambda item: item[0], reverse
 print ('total number of answers in Q11:',len(superlist))
 
 ########## do it on all the quyestions opf part2
-########### builkd a matrix. 
+########### build a matrix. 
 SuperMatrix = np.zeros((6,9),dtype='int')
 
 SuperMatrix[0,0] = sorted_data_Q3['Acceptance']
@@ -345,8 +356,6 @@ SuperMatrix[5,5] = sorted_data_Q9['Scientific validation']
 SuperMatrix[5,6] = sorted_data_Q10['Scientific validation'] 
 SuperMatrix[5,7] = sorted_data_Q10b['Scientific validation'] 
 SuperMatrix[5,8] = sorted_data_Q11['Scientific validation'] 
-
-
 
 
 titoliy =  []
@@ -420,14 +429,14 @@ cbar.ax.tick_params(labelsize=12)   # increase tick font size
 
 ax_reord.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=12)
 ax_reord.set_xticks(x, titolix, rotation=45, ha='right', fontsize=12)
-ax_reord.set_title('In which activities/phases are these entities involved (Fig1)?', 
+ax_reord.set_title('1. In which activities/phases are these entities involved (Fig2)?', 
                    fontsize=10, y=1.35)
 #plt.grid(axis='y')
 
 plt.tight_layout()
 plt.show()
 
-figSM_reord.savefig(localpath+'Fig8_heatmap_orderedFig1.png',
+figSM_reord.savefig(localpath+'Fig8_heatmap_orderedFig2A.png',
                     bbox_inches='tight',
                     pad_inches=0.2)
 '''
@@ -460,7 +469,7 @@ dfSuper = pd.DataFrame(SuperMatrix,
                        columns = titolix)
 dfSuper.to_csv("comatrixFig7.csv")
 
-#### reorder
+#### reorder, this is the same as new_order = [3, 4, 5, 2, 0, 1] ABOVE
 desired_order = [
     "Problem formulation",
     "R&D",
@@ -470,10 +479,27 @@ desired_order = [
     "Effective use by users"
 ]
 
-
+'''
 ########################################################################
 #################   CLustered heatmap
 #########################################################################
+Implementers (Industry, Health Organizations), Q5+Q8
+Knowledge producers (Universities, Research Institutes), Q3+Q4
+Gatekeepers (Journals, Regulatory Bodies), Q10+Q10b
+Supporters (Funders, Political Bodies) Q9+Q11
+Advocates (Animal Welfare Organizations) Q7
+
+column_name_Q3  = Universities 
+column_name_Q4  = Research Institutes
+column_name_Q5  =  Industry
+column_name_Q7  =  organizations for animal protection
+column_name_Q8  =  Health organizations
+column_name_Q9 =  funding organizations
+column_name_Q10 =  scientific journals 
+column_name_Q10b =  legislative and regulatory bodies
+column_name_Q11 =  political bodies
+'''
+
 ClusterMatrix = np.zeros((6,5),dtype='int')
 
 ClusterMatrix[0,0] = sorted_data_Q3['Acceptance']  +  sorted_data_Q4['Acceptance'] 
@@ -560,23 +586,27 @@ cbar.ax.tick_params(labelsize=14)   # increase tick font size
 
 axSMc_re.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=14)
 axSMc_re.set_xticks(x, titolix, rotation=45, ha='right', fontsize=14)
-axSMc_re.set_title('In which activities/phases are these subgroups involved?',fontsize=10,y=1.3)
+axSMc_re.set_title('2. In which activities/phases are these subgroups involved (Fig2B)?',fontsize=10,y=1.3)
 
 plt.tight_layout()
 plt.show()
-figSMc_re.savefig(localpath+'Fig8_clustered_heatmap_orderedFig1.png')
+figSMc_re.savefig(localpath+'Fig8_clustered_heatmap_orderedFig2B.png')
 
 
-
+'''
 ################################################################
 ################################################################
 ################################################################
 ##### stratification on different RESEARCH FIELDS
+[  0'Basic research', 1 'Translational and applied research',
+  2 'Regulatory research', 3 'Other, please specify',
+   4 'Education and training']
 ################################################################
 ################################################################
 ################################################################
+'''
 
-print ('research fields are:')
+print ('####--->>>>  research fields are:')
 print (column_data_research.unique())
 
 strat_string  = column_data_research.unique()[3]
@@ -764,25 +794,32 @@ cbar.ax.tick_params(labelsize=12)   # increase tick font size
 
 ax_reord.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=12)
 ax_reord.set_xticks(x, titolix, rotation=45, ha='right', fontsize=12)
-ax_reord.set_title('in which activ. involved? strafied by '+ strat_string.split('(')[0] + strat_string1.split('(')[0],
+ax_reord.set_title('3. in which activ. involved? strafied by '+ strat_string.split('(')[0] +' AND '+ strat_string1.split('(')[0],
                   fontsize=10, y=1.35)
 #plt.grid(axis='y')
 
 plt.tight_layout()
 plt.show()
 
-figSM_reord.savefig(localpath+'Fig8_heatmap_Strat_orderedFig1.png',
+figSM_reord.savefig(localpath+'FigS5_heatmap_Strat_ordered_resfields.png',
                     bbox_inches='tight',
                     pad_inches=0.2)
 
 
-
+'''
 ################################################################
 ################################################################
 ################################################################
 ##### stratification on different INSTITUTIONS 
+0 'Research & Academic Institutions (University, Research Institute, Scientific Journal)', 
+1 'Industry & Product Development (Method Developers, Product Developers—pharmaceutical/chemical)', 
+2 'Other (please specify)', 
+3 'Animal Welfare & Research (3R Centers, Animal Protection/Welfare Orga, Organi for Animal Research)', 
+4 'Health & Regulatory Bodies (Health Organizations, Legislative & Regulatory Bodies, Political Bodies)', 
+5 'Funding & Policy Organizations (Funding Organizations, Political Bodies)']
 ################################################################
 ################################################################
+'''
 def Get_RealUniques(data):
 #### we take put the fact that there maybe people working in 
 ## different institutions, spearated by semicolumn
@@ -807,78 +844,127 @@ print ('what type of institution do you work in :')
 
 print('NEW UNIQUE')
 Lista_Instit_unique = Get_RealUniques(column_data_institution.unique())
-print('LOUT\n',Lista_Instit_unique)
+print('######---->>>> Lista Instit \n',Lista_Instit_unique)
 
 #strat_string  = column_data_institution.unique()[0]
-strat_string  = Lista_Instit_unique[4]
-strat_string1 = "" 
+strat_string  = Lista_Instit_unique[0]
+strat_string1 = Lista_Instit_unique[1] 
+strat_string2 = ""  
+strat_string3 = "" 
+
 print ('stratifying to ',strat_string)
 print ('stratifying to ',strat_string1)
+print ('stratifying to ',strat_string2)
+print ('stratifying to ',strat_string3)
 
+def SUPERLIST(column_data_Qn,columndata,string,string1,string2,string3):
+    superlist0 =  GetSuperlist_stratif(column_data_Qn,columndata,string)
+    superlist1 =  GetSuperlist_stratif(column_data_Qn,columndata,string1)
+    superlist2 =  GetSuperlist_stratif(column_data_Qn,columndata,string2)
+    superlist3 =  GetSuperlist_stratif(column_data_Qn,columndata,string3)
+    superlist  =  superlist0 + superlist1 + superlist2 + superlist3
+    print ('total number of answers in Q3:',len(superlist),len(superlist0),len(superlist1),len(superlist2),len(superlist3))
+    counter = Counter(superlist)
+    sorted_data = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
+    #labels, values = zip(*sorted_data.items())
+#    sorted_data_Q3 = sorted_data
+    return sorted_data
+
+'''    
 superlist0 =  GetSuperlist_stratif(column_data_Q3,column_data_institution,strat_string)
 superlist1 =  GetSuperlist_stratif(column_data_Q3,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 =  GetSuperlist_stratif(column_data_Q3,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2
 print ('total number of answers in Q3:',len(superlist),len(superlist0),len(superlist1))
 counter = Counter(superlist)
 sorted_data = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 #labels, values = zip(*sorted_data.items())
 sorted_data_Q3 = sorted_data
+'''
+#sortedCheck = SUPERLIST(column_data_Q3,column_data_institution,strat_string,strat_string1,strat_string2)
+sorted_data_Q3 = SUPERLIST(column_data_Q3,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
 
+#assert sortedCheck == sorted_data_Q3
+'''
 superlist0 = GetSuperlist_stratif(column_data_Q4,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q4,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q4,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2
 counter = Counter(superlist)
 sorted_data_Q4 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
 print ('total number of answers in Q4:',len(superlist))
+'''
+sorted_data_Q4 = SUPERLIST(column_data_Q4,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
 
-superlist0 = GetSuperlist_stratif(column_data_Q5,column_data_institution,strat_string)
+'''superlist0 = GetSuperlist_stratif(column_data_Q5,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q5,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q5,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2
 counter = Counter(superlist)
 sorted_data_Q5 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q5:',len(superlist))
+print ('total number of answers in Q5:',len(superlist))'''
 
-superlist0 = GetSuperlist_stratif(column_data_Q7,column_data_institution,strat_string)
+sorted_data_Q5 = SUPERLIST(column_data_Q5,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
+
+'''superlist0 = GetSuperlist_stratif(column_data_Q7,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q7,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q7,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2 
 counter = Counter(superlist)
 sorted_data_Q7 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q7:',len(superlist))
+print ('total number of answers in Q7:',len(superlist))'''
 
-superlist0 = GetSuperlist_stratif(column_data_Q8,column_data_institution,strat_string)
+sorted_data_Q7 = SUPERLIST(column_data_Q7,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
+
+'''superlist0 = GetSuperlist_stratif(column_data_Q8,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q8,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q8,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2 
 counter = Counter(superlist)
 sorted_data_Q8 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q8:',len(superlist))
+print ('total number of answers in Q8:',len(superlist))'''
 
-superlist0 = GetSuperlist_stratif(column_data_Q9,column_data_institution,strat_string)
+sorted_data_Q8 = SUPERLIST(column_data_Q8,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
+
+'''superlist0 = GetSuperlist_stratif(column_data_Q9,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q9,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q9,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2 
 counter = Counter(superlist)
 sorted_data_Q9 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q9:',len(superlist))
+print ('total number of answers in Q9:',len(superlist))'''
 
-superlist0 = GetSuperlist_stratif(column_data_Q10,column_data_institution,strat_string)
+sorted_data_Q9 = SUPERLIST(column_data_Q9,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
+
+'''superlist0 = GetSuperlist_stratif(column_data_Q10,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q10,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q10,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2 
 counter = Counter(superlist)
 sorted_data_Q10 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q10:',len(superlist))
+print ('total number of answers in Q10:',len(superlist))'''
 
-superlist0 = GetSuperlist_stratif(column_data_Q10b,column_data_institution,strat_string)
+sorted_data_Q10 = SUPERLIST(column_data_Q10,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
+
+'''superlist0 = GetSuperlist_stratif(column_data_Q10b,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q10b,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q10b,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2 
 counter = Counter(superlist)
 sorted_data_Q10b = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q10b:',len(superlist))
+print ('total number of answers in Q10b:',len(superlist))'''
 
-superlist0 = GetSuperlist_stratif(column_data_Q11,column_data_institution,strat_string)
+sorted_data_Q10b = SUPERLIST(column_data_Q10b,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
+
+'''superlist0 = GetSuperlist_stratif(column_data_Q11,column_data_institution,strat_string)
 superlist1 = GetSuperlist_stratif(column_data_Q11,column_data_institution,strat_string1)
-superlist  =  superlist0 + superlist1 
+superlist2 = GetSuperlist_stratif(column_data_Q11,column_data_institution,strat_string2)
+superlist  =  superlist0 + superlist1 + superlist2 
 counter = Counter(superlist)
 sorted_data_Q11 = dict(sorted(counter.items(), key=lambda item: item[0], reverse=False))
-print ('total number of answers in Q11:',len(superlist))
+print ('total number of answers in Q11:',len(superlist))'''
+
+sorted_data_Q11 = SUPERLIST(column_data_Q11,column_data_institution,strat_string,strat_string1,strat_string2,strat_string3)
 
 ########## do it on all the quyestions opf part2
 ########### builkd a matrix. 
@@ -974,13 +1060,21 @@ titoliy_reordered = [titoliy[i] for i in new_order]
 y = np.arange(len(titoliy_reordered))
 x = np.arange(len(titolix))
 
+print ('WOOWWWWWw)-------->>>>>>Z',titolix)
+
+if titolix[3] == "Organizations animal protect.":
+    titolix[3] = "Organiz. animal prot."
+    print ('titolx updated',titolix[3])    
+if titolix[7] == "legislative, regulat. bodies":
+    titolix[7] = "Legisl. regulat. bodies"
+    print ('titolx updated',titolix[7])    
 
 figSM_reord, ax_reord = plt.subplots(figsize=(10,6))
 
 im_reord = ax_reord.imshow(SuperMatrix_reordered, cmap='magma')
 
 # Create a new axis above the heatmap for the colorbar
-cbar_ax = figSM_reord.add_axes([0.45, 0.69, 0.29, 0.03])
+cbar_ax = figSM_reord.add_axes([0.36, 1.02, 0.51, 0.06])
 
 # Horizontal colorbar
 cbar = figSM_reord.colorbar(im_reord,
@@ -992,19 +1086,36 @@ cbar = figSM_reord.colorbar(im_reord,
 # Move tick labels ABOVE the bar
 cbar.ax.xaxis.set_ticks_position('top')
 cbar.ax.xaxis.set_label_position('top')
-cbar.ax.tick_params(labelsize=12)   # increase tick font size
+cbar.ax.tick_params(labelsize=22)   # increase tick font size
 
-ax_reord.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=12)
-ax_reord.set_xticks(x, titolix, rotation=45, ha='right', fontsize=12)
-ax_reord.set_title('I,in which activ. involved? strafied by '+strat_string.split('(')[0] + strat_string1.split('(')[0],
-                  fontsize=10, y=1.35)
+ax_reord.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=20)
+ax_reord.set_xticks(x, titolix, rotation=45, ha='right', fontsize=20)
+stringaTitolo = ('4. In which activ. \n involved? strafied by \n' +strat_string.split('(')[0] +
+                ' \n AND '+ strat_string1.split('(')[0]+ 
+                ' \n AND '+ strat_string2.split('(')[0] +
+                ' \n AND '+ strat_string3.split('(')[0]
+                )
 #plt.grid(axis='y')
+
+box = ax_reord.get_position()
+ax_reord.set_position([box.x0, box.y0, box.width * 0.75, box.height])
+
+# Place the "legend-style" title at x=1.05 (just outside the right spine)
+ax_reord.text(
+    1.05, 0.5,                  # x=1.05 (right of plot), y=0.5 (vertically centered)
+    stringaTitolo, 
+    transform  = ax_reord.transAxes,     # Use 0-1 axes coordinates instead of data coordinates
+    fontsize   = 10, 
+    fontweight='bold',
+    va='center',                # Vertical alignment
+    ha='left'                   # Horizontal alignment
+)
 
 plt.tight_layout()
 plt.show()
 
 
-figSM_reord.savefig(localpath+'Fig8_heatmap_Strat_Instit_orderedFig1.png',
+figSM_reord.savefig(localpath+'FigS5_heatmap_Strat_Instit_ordered_multiple.png',
                     bbox_inches='tight',
                     pad_inches=0.2)
 
@@ -1134,14 +1245,17 @@ cbar.ax.tick_params(labelsize=14)   # increase tick font size
 
 axSMc_re.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=14)
 axSMc_re.set_xticks(x, titolix, rotation=45, ha='right', fontsize=14)
-axSMc_re.set_title('In which activities/phases are these subgroups involved?',fontsize=10,y=1.3)
+axSMc_re.set_title('5. In which activities/phases are  subgroups involved 2:'+strat_string.split('(')[0] +' AND ' + strat_string1.split('(')[0],
+                  fontsize=10, y=1.35)
+
+########## FIGURE TITLE ###########################
 
 plt.tight_layout()
 plt.show()
-figSMc_re.savefig(localpath+'Fig8_clustered_heatmap_orderedFig1.png')
+figSMc_re.savefig(localpath+'FigS5_clustered_heatmap_ordered_multiple.png')
 
 #####################################################
-##########      NOW STRATIFY ACCORDING TO INSTITUTIONS
+##########      NOW STRATIFY ACCORDING TO  *** a single ** INSTITUTIONS
 #####################################################
 print ('stratirfy the clustered matrix on - what type of institution do you work in?- :')
 #print (column_data_institution.unique())
@@ -1149,7 +1263,7 @@ print ('stratirfy the clustered matrix on - what type of institution do you work
 
 print('NEW UNIQUE - Clustered ')
 Lista_Instit_unique = Get_RealUniques(column_data_institution.unique())
-print('LOUT\n',Lista_Instit_unique)
+print('#####---->>> LOUT Instit \n',Lista_Instit_unique)
 #strat_string  = column_data_institution.unique()[4]
 strat_string  = Lista_Instit_unique[4]
 
@@ -1291,11 +1405,11 @@ cbar.ax.tick_params(labelsize=14)   # increase tick font size
 
 axSMc_re.set_yticks(y, titoliy_reordered, rotation=0, ha='right', fontsize=14)
 axSMc_re.set_xticks(x, titolix, rotation=45, ha='right', fontsize=14)
-axSMc_re.set_title('activities/phases fpr subgroups, stratified by '+strat_string,fontsize=10,y=1.3)
-
+axSMc_re.set_title('6. activities/phases for subgroups, stratified ONLY by '+strat_string.split('(')[0],fontsize=10,y=1.3)
+########## FIGURE TITLE ###########################
 plt.tight_layout()
 plt.show()
-figSMc_re.savefig(localpath+'Fig8_clustered_heatmap_ordered_strat_instit_Fig1.png')
+figSMc_re.savefig(localpath+'FigS5_clustered_heatmap_ordered_strat_ONE_instit.png')
 
 print (ClusterMatrix_reordered.sum())
 print (ClusterMatrix_reordered)
